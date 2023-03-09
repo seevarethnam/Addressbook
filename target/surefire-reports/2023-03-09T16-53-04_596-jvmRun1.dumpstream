@@ -1,0 +1,3 @@
+# Created on 2023-03-09T16:53:07.002
+Corrupted stdin stream in forked JVM 1. Stream 'FATAL ERROR in native method: processing of -javaagent failed, processJavaStart failed'.
+

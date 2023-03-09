@@ -31,7 +31,7 @@ public class GenericComparator implements Comparator, Serializable {
 	protected static final String DATATYPE_DOUBLE = &quot;java.lang.Double&quot;;
 	protected static final String DATATYPE_BOOLEAN = &quot;java.lang.Boolean&quot;;
 
-<span class="pc" id="L34">	protected enum CompareMode { EQUAL, LESS_THAN, GREATER_THAN, DEFAULT }</span>
+<span class="nc" id="L34">	protected enum CompareMode { EQUAL, LESS_THAN, GREATER_THAN, DEFAULT }</span>
 	// generic comparator attributes
 	protected String targetMethod;
 	protected boolean sortAscending;
@@ -100,34 +100,34 @@ public class GenericComparator implements Comparator, Serializable {
 	 */
 
 	public GenericComparator(String sortField, boolean sortAscending) {
-<span class="fc" id="L103">		super();</span>
-<span class="fc" id="L104">		this.targetMethod = prepareTargetMethod(sortField);</span>
-<span class="fc" id="L105">		this.sortAscending = sortAscending;</span>
-<span class="fc" id="L106">	}</span>
+<span class="nc" id="L103">		super();</span>
+<span class="nc" id="L104">		this.targetMethod = prepareTargetMethod(sortField);</span>
+<span class="nc" id="L105">		this.sortAscending = sortAscending;</span>
+<span class="nc" id="L106">	}</span>
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public int compare(Object o1, Object o2) {
-<span class="fc" id="L112">		int response = LESSER;</span>
+<span class="nc" id="L112">		int response = LESSER;</span>
 		Object v1,v2;
 		String returnType;
 		try {
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">			if(this.targetMethod==null){</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">			if(this.targetMethod==null){</span>
 <span class="nc" id="L117">				v1=o1;</span>
 <span class="nc" id="L118">				v2=02;</span>
 <span class="nc" id="L119">				returnType=o1.getClass().getName();</span>
 			}else{
-<span class="fc" id="L121">				v1=getValue(o1);</span>
-<span class="fc" id="L122">				v2=getValue(o2);</span>
-<span class="fc" id="L123">				returnType=getMethod(o1).getReturnType().getName();</span>
+<span class="nc" id="L121">				v1=getValue(o1);</span>
+<span class="nc" id="L122">				v2=getValue(o2);</span>
+<span class="nc" id="L123">				returnType=getMethod(o1).getReturnType().getName();</span>
 			}
 			
-<span class="fc" id="L126">			CompareMode cm = findCompareMode(v1, v2);</span>
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">			if (!cm.equals(CompareMode.DEFAULT)) {</span>
+<span class="nc" id="L126">			CompareMode cm = findCompareMode(v1, v2);</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">			if (!cm.equals(CompareMode.DEFAULT)) {</span>
 <span class="nc" id="L128">				return compareAlternate(cm);</span>
 			}
-<span class="fc" id="L130">			response = compareActual(v1, v2, returnType);</span>
+<span class="nc" id="L130">			response = compareActual(v1, v2, returnType);</span>
 		} 
 		// in JSE 1.7 the below is accepted
 		/*
@@ -139,8 +139,8 @@ public class GenericComparator implements Comparator, Serializable {
 <span class="nc" id="L139">			LoggerStackTraceUtil.printErrorMessage(e);</span>
 <span class="nc" id="L140">		}catch (InvocationTargetException e){</span>
 <span class="nc" id="L141">			LoggerStackTraceUtil.printErrorMessage(e);</span>
-<span class="pc" id="L142">		} </span>
-<span class="fc" id="L143">		return response;</span>
+<span class="nc" id="L142">		} </span>
+<span class="nc" id="L143">		return response;</span>
 	}
 	
 //---------------------------------------------------------------------------------//
@@ -175,28 +175,28 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @return int - compare return value
 	 */
 	private int compareActual(Object v1, Object v2, String returnType) {
-<span class="fc" id="L178">		String obj = returnType;</span>
-<span class="pc bpc" id="L179" title="1 of 4 branches missed.">		if (&quot;java.lang.Object&quot;.equals(obj) &amp;&amp; v1!=null) { </span>
-<span class="fc" id="L180">			 obj = v1.getClass().getName(); </span>
+<span class="nc" id="L178">		String obj = returnType;</span>
+<span class="nc bnc" id="L179" title="All 4 branches missed.">		if (&quot;java.lang.Object&quot;.equals(obj) &amp;&amp; v1!=null) { </span>
+<span class="nc" id="L180">			 obj = v1.getClass().getName(); </span>
 		}
-<span class="fc" id="L182">		int acutal = LESSER;</span>
+<span class="nc" id="L182">		int acutal = LESSER;</span>
 		 
-<span class="fc bfc" id="L184" title="All 2 branches covered.">			if (obj.equals(DATATYPE_INTEGER)) {</span>
-<span class="fc" id="L185">				acutal = ((Integer) v1).compareTo((Integer) v2) * determinePosition();</span>
-<span class="pc bpc" id="L186" title="1 of 2 branches missed.">			} else if (obj.equals(DATATYPE_LONG)) {</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">			if (obj.equals(DATATYPE_INTEGER)) {</span>
+<span class="nc" id="L185">				acutal = ((Integer) v1).compareTo((Integer) v2) * determinePosition();</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_LONG)) {</span>
 <span class="nc" id="L187">				acutal = ((Long) v1).compareTo((Long) v2) * determinePosition();</span>
-<span class="fc bfc" id="L188" title="All 2 branches covered.">			} else if (obj.equals(DATATYPE_STRING)) {</span>
-<span class="fc" id="L189">				acutal = ((String) v1).compareTo((String) v2) * determinePosition();</span>
-<span class="pc bpc" id="L190" title="1 of 2 branches missed.">			} else if (obj.equals(DATATYPE_DATE)) {</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_STRING)) {</span>
+<span class="nc" id="L189">				acutal = ((String) v1).compareTo((String) v2) * determinePosition();</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_DATE)) {</span>
 <span class="nc" id="L191">				acutal = ((Date) v1).compareTo((Date) v2) * determinePosition();</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">			} else if (obj.equals(DATATYPE_FLOAT)) {</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_FLOAT)) {</span>
 <span class="nc" id="L193">				acutal = ((Float) v1).compareTo((Float) v2) * determinePosition();</span>
-<span class="pc bpc" id="L194" title="1 of 2 branches missed.">			} else if (obj.equals(DATATYPE_DOUBLE)) {</span>
-<span class="fc" id="L195">				acutal = ((Double) v1).compareTo((Double) v2) * determinePosition();</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_DOUBLE)) {</span>
+<span class="nc" id="L195">				acutal = ((Double) v1).compareTo((Double) v2) * determinePosition();</span>
 <span class="nc bnc" id="L196" title="All 2 branches missed.">			} else if (obj.equals(DATATYPE_BOOLEAN)) {</span>
 <span class="nc" id="L197">				acutal = ((Boolean) v1).compareTo((Boolean) v2) * determinePosition();</span>
 			}
-<span class="fc" id="L199">			return acutal;</span>
+<span class="nc" id="L199">			return acutal;</span>
 	}
 	/**
 	 * preparing target name of getter method for given sort field
@@ -205,9 +205,9 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @return methodName a {@link java.lang.String}
 	 */
 	protected final static String prepareTargetMethod(String name) {
-<span class="fc" id="L208">		StringBuffer fieldName = new StringBuffer(METHOD_GET_PREFIX);</span>
-<span class="fc" id="L209">		fieldName.append(name.substring(0, 1).toUpperCase()).append(name.substring(1));</span>
-<span class="fc" id="L210">		return fieldName.toString();</span>
+<span class="nc" id="L208">		StringBuffer fieldName = new StringBuffer(METHOD_GET_PREFIX);</span>
+<span class="nc" id="L209">		fieldName.append(name.substring(0, 1).toUpperCase()).append(name.substring(1));</span>
+<span class="nc" id="L210">		return fieldName.toString();</span>
 	}
 	
 	/**
@@ -218,7 +218,7 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @throws NoSuchMethodException
 	 */
 	protected final Method getMethod(Object obj) throws NoSuchMethodException {
-<span class="fc" id="L221">		return obj.getClass().getMethod(targetMethod, null);</span>
+<span class="nc" id="L221">		return obj.getClass().getMethod(targetMethod, null);</span>
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class GenericComparator implements Comparator, Serializable {
 	 */
 
 	private final static Object invoke(Method method, Object obj) throws InvocationTargetException, IllegalAccessException {
-<span class="fc" id="L235">		return method.invoke(obj, null);</span>
+<span class="nc" id="L235">		return method.invoke(obj, null);</span>
 	}
 	/**
 	 * fetching a value from given object
@@ -244,7 +244,7 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @throws NoSuchMethodException
 	 */
 	protected Object getValue(Object obj) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-<span class="fc" id="L247">		return invoke(getMethod(obj), obj);</span>
+<span class="nc" id="L247">		return invoke(getMethod(obj), obj);</span>
 	}
 	/**
 	 * identifying the comparison mode for given value
@@ -254,9 +254,9 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @return compareMode - a {@link com.edurekademo.utilities.GenericComparator.CompareMode}
 	 */
 	protected CompareMode findCompareMode(Object o1, Object o2) {
-<span class="fc" id="L257">		CompareMode cm = CompareMode.LESS_THAN;</span>
-<span class="pc bpc" id="L258" title="3 of 6 branches missed.">		if(null != o1 &amp; null != o2) {</span>
-<span class="fc" id="L259">			cm = CompareMode.DEFAULT;</span>
+<span class="nc" id="L257">		CompareMode cm = CompareMode.LESS_THAN;</span>
+<span class="nc bnc" id="L258" title="All 6 branches missed.">		if(null != o1 &amp; null != o2) {</span>
+<span class="nc" id="L259">			cm = CompareMode.DEFAULT;</span>
 <span class="nc bnc" id="L260" title="All 6 branches missed.">		} else if (null == o1 &amp; null != o2) {</span>
 <span class="nc" id="L261">			cm = CompareMode.LESS_THAN;</span>
 <span class="nc bnc" id="L262" title="All 6 branches missed.">		} else if (null != o1 &amp; null == o2) {</span>
@@ -264,7 +264,7 @@ public class GenericComparator implements Comparator, Serializable {
 <span class="nc bnc" id="L264" title="All 6 branches missed.">		} else if (null == o1 &amp; null == o2) {</span>
 <span class="nc" id="L265">			cm = CompareMode.EQUAL;</span>
 		}
-<span class="fc" id="L267">		return cm;</span>
+<span class="nc" id="L267">		return cm;</span>
 	}
 	/**
 	 * Determining positing for sorting
@@ -272,7 +272,7 @@ public class GenericComparator implements Comparator, Serializable {
 	 * @return -1 to change the sort order if appropriate.
 	 */
 	protected int determinePosition() {
-<span class="fc bfc" id="L275" title="All 2 branches covered.">		return sortAscending ? GREATER : LESSER;</span>
+<span class="nc bnc" id="L275" title="All 2 branches missed.">		return sortAscending ? GREATER : LESSER;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

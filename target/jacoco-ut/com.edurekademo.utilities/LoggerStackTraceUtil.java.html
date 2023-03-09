@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // Class used to log the print stack trace items
-<span class="fc" id="L7">public class LoggerStackTraceUtil {</span>
+<span class="nc" id="L7">public class LoggerStackTraceUtil {</span>
 
-<span class="fc" id="L9">	private static final Logger LOG =LoggerFactory.getLogger(LoggerStackTraceUtil.class);  </span>
-<span class="fc" id="L10">	private int maxCount=3; </span>
+<span class="nc" id="L9">	private static final Logger LOG =LoggerFactory.getLogger(LoggerStackTraceUtil.class);  </span>
+<span class="nc" id="L10">	private int maxCount=3; </span>
 
 		/**
 	 * @param th - The exception that was thrown and to be logged. 
@@ -17,17 +17,17 @@ import org.slf4j.LoggerFactory;
 	 * Note this function cannot be made static for thread safety..         
 	 */
 	public String getErrorMessage(Throwable th){ 
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">		if (th==null) return &quot;&quot;; </span>
-<span class="fc" id="L21">		StringBuilder b = new StringBuilder(&quot;&quot;); </span>
-<span class="fc" id="L22">		String [] aryError = ExceptionUtils.getRootCauseStackTrace(th);</span>
-<span class="fc" id="L23">		b.append(aryError[0].trim()); </span>
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">		if (aryError.length &gt;= 2){</span>
-<span class="fc" id="L25">			b.append(String.format(&quot;%nCause:%s&quot;,aryError[1].trim())); </span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">		if (th==null) return &quot;&quot;; </span>
+<span class="nc" id="L21">		StringBuilder b = new StringBuilder(&quot;&quot;); </span>
+<span class="nc" id="L22">		String [] aryError = ExceptionUtils.getRootCauseStackTrace(th);</span>
+<span class="nc" id="L23">		b.append(aryError[0].trim()); </span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (aryError.length &gt;= 2){</span>
+<span class="nc" id="L25">			b.append(String.format(&quot;%nCause:%s&quot;,aryError[1].trim())); </span>
 		}
-<span class="pc bpc" id="L27" title="1 of 2 branches missed.">		if (aryError.length &gt;= maxCount){</span>
-<span class="fc" id="L28">			b.append(String.format(&quot;%nCause:%s&quot;,aryError[2].trim())); </span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if (aryError.length &gt;= maxCount){</span>
+<span class="nc" id="L28">			b.append(String.format(&quot;%nCause:%s&quot;,aryError[2].trim())); </span>
 		}
-<span class="fc" id="L30">		return b.toString(); </span>
+<span class="nc" id="L30">		return b.toString(); </span>
 	}
 
 	// Static Logger function

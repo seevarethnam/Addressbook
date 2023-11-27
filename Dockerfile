@@ -1,4 +1,4 @@
-FROM tomcat:9.0-jre8-alpine
+FROM tomcat:9.0.83-jdk8-corretto-al2
 #ARG server_domain   
 #ARG latest_success 
 

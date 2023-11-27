@@ -43,7 +43,7 @@ COPY src ./src
 RUN mvn package -DskipTests
  
 # Use Tomcat as the base image for the runtime
-FROM tomcat:9.0.83-jdk11-openjdk-slim
+FROM tomcat:8.5.82-jdk11-openjdk-slim-buster
  
 # Copy the application WAR file from the build stage to the Tomcat webapps directory
 COPY --from=build target/addressbook.war /usr/local/tomcat/webapps/

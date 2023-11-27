@@ -25,20 +25,10 @@
 #ENTRYPOINT ["catalina.sh","run"]
 
 
-FROM adoptopenjdk:8-jdk-hotspot-bionic as builder-arm64
- 
- 
-# Stage 2: Build for AMD64
-FROM adoptopenjdk:8-jdk-hotspot-bionic as builder-amd64
- 
- 
-# Stage 3: Final image
-FROM tomcat:9.0.83-jdk8-corretto-al2
+FROM tomcat:9.0.83-jdk8-corretto-al2 as builder-amd64
  
 LABEL maintainer="Santhosh"
  
- 
-COPY --from=builder-arm64 target/addressbook.war /usr/local/tomcat/webapps/
  
 COPY --from=builder-amd64 target/addressbook.war /usr/local/tomcat/webapps/
  

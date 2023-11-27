@@ -25,31 +25,11 @@
 #ENTRYPOINT ["catalina.sh","run"]
 
 
-FROM maven:3.8.1-openjdk-11-slim AS build
- 
-# Set the working directory in the container
-WORKDIR /app
- 
-# Copy the pom.xml file to the container at /app
-COPY pom.xml .
- 
-# Download dependencies and build the project
-RUN mvn clean install -DskipTests
- 
-# Copy the application files
-COPY src ./src
- 
-# Build the application
-RUN mvn package -DskipTests
- 
-# Use Tomcat as the base image for the runtime
-FROM tomcat:8.5.82-jdk11-openjdk-slim-buster
- 
-# Copy the application WAR file from the build stage to the Tomcat webapps directory
-COPY --from=build target/addressbook.war /usr/local/tomcat/webapps/
- 
-# Expose the default Tomcat port
+FROM tomcat:9.0.83-jdk8-corretto-al2
+
+LABEL maintainer="Santhosh"
+
+
+ADD target/addressbook.war /usr/local/tomcat/webapps/
 EXPOSE 8080
- 
-# Start Tomcat when the container starts
-CMD ["catalina.sh", "run"]
+ENTRYPOINT ["catalina.sh","run"]

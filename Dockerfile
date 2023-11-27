@@ -38,9 +38,9 @@ FROM tomcat:9.0.83-jdk8-corretto-al2
 LABEL maintainer="Santhosh"
  
  
-COPY --from=builder-arm64 /path/to/your/app /usr/local/tomcat/webapps/
+COPY --from=builder-arm64 target/addressbook.war /usr/local/tomcat/webapps/
  
-COPY --from=builder-amd64 /path/to/your/app /usr/local/tomcat/webapps/
+COPY --from=builder-amd64 target/addressbook.war /usr/local/tomcat/webapps/
  
 EXPOSE 8080
  

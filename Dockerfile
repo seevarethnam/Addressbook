@@ -1,4 +1,4 @@
-FROM tomcat:9.0.83-jdk8-corretto-al2
+#FROM tomcat:9.0.83-jdk8-corretto-al2
 #ARG server_domain   
 #ARG latest_success 
 
@@ -17,9 +17,31 @@ FROM tomcat:9.0.83-jdk8-corretto-al2
 
 #HEALTHCHECK --interval=1m --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:8080/addressbook/ || exit
 
+#LABEL maintainer="Santhosh"
+
+
+#ADD target/addressbook.war /usr/local/tomcat/webapps/
+#EXPOSE 8080
+#ENTRYPOINT ["catalina.sh","run"]
+
+
+FROM adoptopenjdk:8-jdk-hotspot-bionic as builder-arm64
+ 
+ 
+# Stage 2: Build for AMD64
+FROM adoptopenjdk:8-jdk-hotspot-bionic as builder-amd64
+ 
+ 
+# Stage 3: Final image
+FROM tomcat:9.0.83-jdk8-corretto-al2
+ 
 LABEL maintainer="Santhosh"
-
-
-ADD target/addressbook.war /usr/local/tomcat/webapps/
+ 
+ 
+COPY --from=builder-arm64 /path/to/your/app /usr/local/tomcat/webapps/
+ 
+COPY --from=builder-amd64 /path/to/your/app /usr/local/tomcat/webapps/
+ 
 EXPOSE 8080
-ENTRYPOINT ["catalina.sh","run"]
+ 
+ENTRYPOINT ["catalina.sh", "run"]

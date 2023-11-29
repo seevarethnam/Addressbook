@@ -5,6 +5,7 @@
 #ENV server=${server_domain} 
 
 #ENV latest=${latest_success}
+
 #RUN apk  update  \
 #  && apk add  curl wget
 #RUN echo $server

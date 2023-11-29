@@ -18,7 +18,7 @@ spec:
       - name: addressbook
         image: santhosh0637/addressbook:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 8088
 ---
 apiVersion: v1
 kind: Service
@@ -29,6 +29,6 @@ spec:
     app: addressbook
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 8080
+    port: 8089
+    targetPort: 8088
   type: LoadBalancer

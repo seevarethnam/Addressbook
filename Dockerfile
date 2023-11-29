@@ -31,5 +31,5 @@ LABEL maintainer="Santhosh"
 
 
 ADD target/addressbook.war /usr/local/tomcat/webapps/
-EXPOSE 8088
+EXPOSE 80
 ENTRYPOINT ["catalina.sh","run"]

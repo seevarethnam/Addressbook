@@ -9,7 +9,6 @@
 #  && apk add  curl wget
 #RUN echo $server
 
-
 #RUN echo $latest
 #RUN  curl --output $CATALINA_HOME/webapps/addressbook.war $server:8081/artifactory/libs-release-local/com/edurekademo/tutorial/addressbook/$latest/addressbook-$latest.war
 

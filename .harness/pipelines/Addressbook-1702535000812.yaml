@@ -19,11 +19,11 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_1
+                  name: Run
                   identifier: Run_1
                   spec:
                     shell: Sh
-                    command: echi Hi
+                    command: echo Hi
           platform:
             os: Linux
             arch: Amd64
